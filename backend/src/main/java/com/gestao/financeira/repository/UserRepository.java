@@ -1,0 +1,15 @@
+package com.gestao.financeira.repository;
+
+import com.gestao.financeira.entity.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface UserRepository extends JpaRepository<User,Long> {
+    public List<User> findAll();
+    public List<User> findByName(String name);
+    public List<User> findByEmail(String email);
+    public List<User> findByCpf(String cpf);
+}

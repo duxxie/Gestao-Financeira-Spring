@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,18 +14,26 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+@Table(name = "tb_financial_transaction")
+public class FinancialTransaction {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "")
     private Long id;
-    public String description;
-    public BigDecimal value;
-    public TypeOfTransaction type;
-    public LocalDateTime date;
+    private String description;
+    private BigDecimal value;
+
+    @Enumerated(EnumType.STRING)
+    private TypeOfTransaction type;
+
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    public Long userId;
+    @JoinColumn(name = "userId")
+    private User user;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    public Long accountId;
+    @JoinColumn(name = "accountId")
+    private Account account;
 
 }

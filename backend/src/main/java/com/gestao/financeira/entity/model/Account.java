@@ -14,15 +14,16 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tb_account")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public String nome;
-    public TypeAccount typeAccount;
-    public BigDecimal saldo;
+    private String name;
+    private TypeAccount typeAccount;
+    private BigDecimal saldo;
 
     @OneToOne(cascade = CascadeType.ALL)
-    public Long userId;
-    public String cpfCnpj;
+    private User user;
+    private String cpfCnpj;
 }

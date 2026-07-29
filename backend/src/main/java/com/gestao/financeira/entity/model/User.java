@@ -12,14 +12,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tb_user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "")
     private Long id;
-    public String name;
-    public String email;
-    public String password;
-    public String cpf;
-    public UserRole role;
+    private String name;
+    private String email;
+    private String password;
+    private String cpf;
+    private UserRole role;
 }

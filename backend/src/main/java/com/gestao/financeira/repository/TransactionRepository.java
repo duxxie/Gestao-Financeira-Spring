@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gestao.financeira.entity.model.Transaction;
+import com.gestao.financeira.entity.model.FinancialTransaction;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+public interface TransactionRepository extends JpaRepository<FinancialTransaction, Long> {
 
-    public List<Transaction> findAll();
-    public List<Transaction> findByUserId(Long userId);
-    public List<Transaction> findByAccountId(Long accountId);
-    public List<Transaction> findByNameContainingIgnoreCase(String name);
+    public List<FinancialTransaction> findAll();
+    public List<FinancialTransaction> findByUserId(Long userId);
+    public List<FinancialTransaction> findByAccountId(Long accountId);
 }

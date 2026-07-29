@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gestao.financeira.dto.TransactionDTO.TransactionRequestDTO;
@@ -16,7 +17,7 @@ import com.gestao.financeira.dto.TransactionDTO.TransactionResponseDTO;
 import com.gestao.financeira.service.TransactionService;
 
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping("/api/transactions")
 public class TransactionController {
     
     @Autowired
@@ -28,18 +29,13 @@ public class TransactionController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<TransactionResponseDTO> findByUserId(Long userId) {
+    public List<TransactionResponseDTO> findByUserId(@RequestParam Long userId) {
         return transactionService.findByUserId(userId);
     }
 
     @GetMapping("/account/{accountId}")
-    public List<TransactionResponseDTO> findByAccountId(Long accountId) {
+    public List<TransactionResponseDTO> findByAccountId(@RequestParam Long accountId) {
         return transactionService.findByAccountId(accountId);
-    }
-
-    @GetMapping("/name/{name}")
-    public List<TransactionResponseDTO> findByNameContainingIgnoreCase(String name) {
-        return transactionService.findByNameContainingIgnoreCase(name);
     }
 
     @PostMapping
@@ -53,7 +49,7 @@ public class TransactionController {
     }
 
     @DeleteMapping("/{id}")
-    public TransactionResponseDTO deleteTransaction(Long id) {
+    public TransactionResponseDTO deleteTransaction(@RequestParam Long id) {
         return transactionService.deleteTransaction(id);
     }
 }

@@ -10,16 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api/accounts")
 public class AccountController {
 
     @Autowired
     public AccountService accountService;
-
-    @GetMapping
-    public List<AccountResponseDTO> findAll() {
-        return accountService.findAll();
-    }
 
     @GetMapping("/search/name")
     public List<AccountResponseDTO> findByName(@RequestParam String name){

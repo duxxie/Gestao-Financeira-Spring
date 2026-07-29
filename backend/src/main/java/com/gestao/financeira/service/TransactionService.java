@@ -3,11 +3,12 @@ package com.gestao.financeira.service;
 import java.util.List;
 
 import com.gestao.financeira.dto.TransactionDTO.TransactionRequestDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gestao.financeira.dto.TransactionDTO.TransactionResponseDTO;
-import com.gestao.financeira.entity.model.Transaction;
+import com.gestao.financeira.entity.model.FinancialTransaction;
 import com.gestao.financeira.mapper.TransactionMapper;
 import com.gestao.financeira.repository.TransactionRepository;
 
@@ -21,40 +22,36 @@ public class TransactionService {
     public TransactionMapper transactionMapper;
     
     public List<TransactionResponseDTO> findAll() {
-        List<Transaction> transactions = transactionRepository.findAll();
-        return transactions.stream().map(transactionMapper::toDTO).toList();
+        List<FinancialTransaction> financialTransactions = transactionRepository.findAll();
+        return financialTransactions.stream().map(transactionMapper::toDTO).toList();
     }
 
     public List<TransactionResponseDTO> findByUserId(Long userId) {
-        List<Transaction> transactions = transactionRepository.findByUserId(userId);
-        return transactions.stream().map(transactionMapper::toDTO).toList();
+        List<FinancialTransaction> financialTransactions = transactionRepository.findByUserId(userId);
+        return financialTransactions.stream().map(transactionMapper::toDTO).toList();
     }
 
     public List<TransactionResponseDTO> findByAccountId(Long accountId) {
-        List<Transaction> transactions = transactionRepository.findByAccountId(accountId);
-        return transactions.stream().map(transactionMapper::toDTO).toList();
-    }
-
-    public List<TransactionResponseDTO> findByNameContainingIgnoreCase(String name) {
-        List<Transaction> transactions = transactionRepository.findByNameContainingIgnoreCase(name);
-        return transactions.stream().map(transactionMapper::toDTO).toList();
+        List<FinancialTransaction> financialTransactions = transactionRepository.findByAccountId(accountId);
+        return financialTransactions.stream().map(transactionMapper::toDTO).toList();
     }
 
     public TransactionResponseDTO insertTransaction(TransactionRequestDTO dto) {
-        Transaction transaction = transactionMapper.toEntity(dto);
-        Transaction transactionSaved = transactionRepository.save(transaction);
-        return transactionMapper.toDTO(transactionSaved);
+        FinancialTransaction financialTransaction = transactionMapper.toEntity(dto);
+        FinancialTransaction financialTransactionSaved = transactionRepository.save(financialTransaction);
+        return transactionMapper.toDTO(financialTransactionSaved);
     }
 
     public TransactionResponseDTO updateTransaction(TransactionRequestDTO dto) {
-        Transaction transaction = transactionMapper.toEntity(dto);
-        Transaction transactionSaved = transactionRepository.save(transaction);
-        return transactionMapper.toDTO(transactionSaved);
+        FinancialTransaction financialTransaction = transactionMapper.toEntity(dto);
+        FinancialTransaction financialTransactionSaved = transactionRepository.save(financialTransaction);
+        return transactionMapper.toDTO(financialTransactionSaved);
     }
 
+    @Transactional
     public TransactionResponseDTO deleteTransaction(Long id) {
-        Transaction transaction = transactionRepository.findById(id).orElse(null);
-        transactionRepository.delete(transaction);
-        return transactionMapper.toDTO(transaction);
+        FinancialTransaction financialTransaction = transactionRepository.findById(id).orElse(null);
+        transactionRepository.delete(financialTransaction);
+        return transactionMapper.toDTO(financialTransaction);
     }
 }
